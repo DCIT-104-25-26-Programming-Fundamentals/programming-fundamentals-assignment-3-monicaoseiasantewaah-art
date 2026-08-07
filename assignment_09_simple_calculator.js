@@ -73,5 +73,101 @@
 // =============================================================================
 // YOUR CODE BELOW — remove the // symbols from the scaffold and fill it in
 // =============================================================================
+const readlineSync = require('readline-sync');
 
+function add(a, b) {
+    return a + b;
+}
+
+function subtract(a, b) {
+    return a - b;
+}
+
+function multiply(a, b) {
+    return a * b;
+}
+
+function divide(a, b) {
+    if (b === 0) return null;
+    return a / b;
+}
+
+function modulus(a, b) {
+    if (b === 0) return null;
+    return a % b;
+}
+
+function power(a, b) {
+    return a ** b;
+}
+
+function displayMenu() {
+    console.log('\n============================');
+    console.log('       SIMPLE CALCULATOR    ');
+    console.log('============================');
+    console.log('1. Addition');
+    console.log('2. Subtraction');
+    console.log('3. Multiplication');
+    console.log('4. Division');
+    console.log('5. Modulus');
+    console.log('6. Exponentiation');
+    console.log('7. Quit');
+}
+
+function formatResult(val) {
+    if (Number.isInteger(val)) {
+        return val;
+    }
+    return parseFloat(val.toFixed(2));
+}
+
+function main() {
+    while (true) {
+        displayMenu();
+        const choice = readlineSync.question('Select an operation (1-7): ').trim();
+
+        if (choice === '7') {
+            console.log('Goodbye!');
+            break;
+        }
+
+        if (!['1', '2', '3', '4', '5', '6'].includes(choice)) {
+            console.log('Invalid choice! Please select an operation from 1 to 7.');
+            continue;
+        }
+
+        const num1 = readlineSync.questionFloat('Enter first number : ');
+        const num2 = readlineSync.questionFloat('Enter second number: ');
+
+        if (choice === '1') {
+            const res = add(num1, num2);
+            console.log(`Result: ${formatResult(num1)} + ${formatResult(num2)} = ${formatResult(res)}`);
+        } else if (choice === '2') {
+            const res = subtract(num1, num2);
+            console.log(`Result: ${formatResult(num1)} - ${formatResult(num2)} = ${formatResult(res)}`);
+        } else if (choice === '3') {
+            const res = multiply(num1, num2);
+            console.log(`Result: ${formatResult(num1)} * ${formatResult(num2)} = ${formatResult(res)}`);
+        } else if (choice === '4') {
+            const res = divide(num1, num2);
+            if (res === null) {
+                console.log('Error: Cannot divide by zero.');
+            } else {
+                console.log(`Result: ${formatResult(num1)} / ${formatResult(num2)} = ${formatResult(res)}`);
+            }
+        } else if (choice === '5') {
+            const res = modulus(num1, num2);
+            if (res === null) {
+                console.log('Error: Cannot divide by zero.');
+            } else {
+                console.log(`Result: ${formatResult(num1)} % ${formatResult(num2)} = ${formatResult(res)}`);
+            }
+        } else if (choice === '6') {
+            const res = power(num1, num2);
+            console.log(`Result: ${formatResult(num1)} ** ${formatResult(num2)} = ${formatResult(res)}`);
+        }
+    }
+}
+
+main();
 
